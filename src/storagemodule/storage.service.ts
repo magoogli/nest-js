@@ -22,7 +22,6 @@ export class StorageService implements StorageInterface, OnModuleInit, OnModuleD
     else
     {
       throw new Error('onModuleInit called more than once.');
-
     }
   }
 
