@@ -4,19 +4,32 @@ import { ThrottlerStorageRecord } from '@nestjs/throttler/dist/throttler-storage
 
 @Injectable()
 export class StorageService implements StorageInterface, OnModuleInit, OnModuleDestroy {
+
+  private initialized = false;
+
   constructor() {
     console.log('StorageService Constructed');
   }
-  doSomething(): string {
-    return "Hi"
-  }
-  increment(key: string, ttl: number, limit: number, blockDuration: number, throttlerName: string): Promise<ThrottlerStorageRecord> {
-    throw new Error('Method not implemented.');
-  }
+ 
   onModuleDestroy() {
     console.log('StorageService onModuleDestroy');
   }
   onModuleInit() {
-    console.log('StorageService onModuleInit called');
+    if (!this.initialized) {
+      this.initialized = true;
+      console.log('StorageService onModuleInit called');
+    }
+    else
+    {
+    throw new Error('onModuleInit called more than once.');
+
+    }
+  }
+
+   doSomething(): string {
+    return "Hi"
+  }
+  increment(key: string, ttl: number, limit: number, blockDuration: number, throttlerName: string): Promise<ThrottlerStorageRecord> {
+    throw new Error('Method not implemented.');
   }
 }
